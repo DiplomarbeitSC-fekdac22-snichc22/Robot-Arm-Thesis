@@ -5,6 +5,8 @@ HTBLA Kaindorf Template for the internal Diploma Thesis FROM SCHNITZER AND FEKET
 
 da-0.0_mainDocument.tex
 
+I hope this works now!
+
 da-1_intro.tex
 
 * da-1.1_legalDeclaration.tex
