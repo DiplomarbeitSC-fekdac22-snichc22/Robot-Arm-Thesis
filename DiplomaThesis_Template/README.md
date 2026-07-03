@@ -1,5 +1,5 @@
 # Template-DiplomaThesis
-HTBLA Kaindorf Template for the internal Diploma Thesis
+HTBLA Kaindorf Template for the internal Diploma Thesis FROM SCHNITZER AND FEKETE
 
 # Descripton
 
