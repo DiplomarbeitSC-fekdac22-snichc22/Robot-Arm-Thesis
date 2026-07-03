@@ -1,0 +1,82 @@
+% flags for department and language
+
+\usepackage{ifthen}
+
+% DECLARATION OF VARAIBLES
+\newboolean{isInformatik} % declaration
+\newboolean{isEnglish} % declaration
+\newboolean{isDoublePagePrinting} % declaration
+\newboolean{isSansSerif} % declaration
+\newboolean{withAuthorOnPage} % declaration
+
+\newif\ifen
+\newif\ifde
+
+\newcommand{\en}[1]{\ifen#1\fi}
+\newcommand{\de}[1]{\ifde#1\fi}
+
+% deutsche Anfuehrungszeichen
+\newcommand{\anf}[1]{\glqq #1\grqq{}} %SH_220105 eingefügt
+
+\newcommand*{\daDefineFooter}{%
+    \ifbool{isDoublePagePrinting}{%
+        \fancyhead[RO,LE]{\rightmark}
+        \cfoot{}
+        \fancyfoot[RO,LE]{\thepage}
+        \ifbool{withAuthorOnPage}{\fancyfoot[LO,RE]{\TheAuthor}}{}
+    }{
+        \fancyhead[R]{\rightmark}
+        \cfoot{\daTitle}
+        \fancyfoot[R]{\thepage}
+        \ifbool{withAuthorOnPage}{\fancyfoot[L]{\daAuthors}}{}
+    }
+}
+
+\fancypagestyle{plain}{\daDefineFooter}
+
+\newcommand*{\doubleOrSinglePagedWithoutAuthor}{
+	\ifthenelse{\boolean{isDoublePagePrinting}}{
+		\fancyhead[L]{\ifthenelse{\isodd{\value{page}}}{}{\rightmark}}
+		\fancyhead[R]{\ifthenelse{\isodd{\value{page}}}{\rightmark}{}}
+		\cfoot{}
+		\fancyfoot[L]{\ifthenelse{\isodd{\value{page}}{\thepage}}}
+		\fancyfoot[R]{\ifthenelse{\isodd{\value{page}}}{\thepage}}
+	}{
+		% ********* begin einseitiger Druck *********** SH_220305
+		\fancyhead[R]{\rightmark}
+		\cfoot{\daTitle}
+		\fancyfoot[R]{\thepage}
+	}
+}
+
+
+\newcommand*{\SerifOrSans}[1]{
+	\ifthenelse{\boolean{isSansSerif}}{
+		\renewcommand{\familydefault}{\sfdefault}
+		\sffamily
+    }{
+		\renewcommand{\familydefault}{\rmdefault}
+		\rmfamily
+	}
+}
+
+
+%\newcommand*{\inputLanguageText}[1]{
+%    \ifthenelse{\boolean{isEnglish}}{
+%        \input{DA-INCLUDES/EN/#1}
+%    }{
+%        \input{DA-INCLUDES/DE/#1}
+%    }
+%}
+
+\newcommand*{\inputDepartmentTitlePage}[1]{
+    \ifthenelse{\boolean{isEnglish}}{
+        \input{DA-INCLUDES/en/da-1.0_titlePage_#1.tex}
+    }{
+        \input{DA-INCLUDES/de/da-1.0_titlePage_#1.tex}
+    }
+}
+
+\newcommand{\loadLangFile}[1]{
+        \input{DA-INCLUDES/\lang/#1}
+}
